@@ -1,0 +1,60 @@
+import speech_recognition as sr
+import time
+import logging
+
+MAX_ATTEMPTS = 3
+TIMEOUT_SECONDS = 5
+
+def recognize_speech():
+    recognizer = sr.Recognizer()
+
+    with sr.Microphone() as source:
+        print("Say your password:")
+        audio = recognizer.listen(source)
+
+    try:
+        password = recognizer.recognize_google(audio)
+        return password.lower()  # Convert to lowercase for case-insensitive comparison
+    except sr.UnknownValueError:
+        print("Could not understand audio")
+        return None
+    except sr.RequestError as e:
+        print(f"Error connecting to Google API: {e}")
+        return None
+
+def validate_password(password):
+    # Replace with your actual password validation logic (e.g., check against a hashed password)
+    return password == "securepassword"
+
+def log_attempt(successful, username):
+    if successful:
+        logging.info(f"Successful login for user: {username}")
+    else:
+        logging.warning(f"Failed login attempt for user: {username}")
+
+if __name__ == "__main__":
+    attempts = 0
+
+    while attempts < MAX_ATTEMPTS:
+        username = input("Enter your username: ")
+        password = recognize_speech()
+
+        if username and password and validate_password(password):
+            print("Authentication successful")
+            log_attempt(True, username)
+            break
+        else:
+            print("Authentication failed. Would you like to register a new account? (yes/no)")
+            choice = input().lower()
+            if choice == 'yes':
+                # Implement user registration logic here
+                print("Account registered. You can now log in.")
+                break
+            print("Authentication failed. Please try again.")
+            log_attempt(False, username)
+            attempts += 1
+            if attempts < MAX_ATTEMPTS:
+                print(f"Wait for {TIMEOUT_SECONDS} seconds before the next attempt.")
+                time.sleep(TIMEOUT_SECONDS)
+    else:
+        print("Too many incorrect attempts. Account locked.")
