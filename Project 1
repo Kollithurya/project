@@ -1,24 +1,67 @@
+import winsound  # for sound output (Windows)
+import time
+
+# Morse code dictionary
 morse_code_dict = {
-    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
-    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
-    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
-    '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',
-    ' ': '/'
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',
+    'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.',
+    'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+    'Y': '-.--', 'Z': '--..',
+    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...',
+    '8': '---..', '9': '----.', '0': '-----',
+    ' ': ' '
 }
+
+# Reverse dictionary for decoding Morse code
+reverse_morse_code_dict = {value: key for key, value in morse_code_dict.items()}
 
 def text_to_morse(text):
     morse_code = ''
     for char in text.upper():
         if char in morse_code_dict:
             morse_code += morse_code_dict[char] + ' '
+    return morse_code
+
+def morse_to_text(morse_code):
+    decoded_text = ''
+    morse_words = morse_code.split(' ')
+    for morse_word in morse_words:
+        if morse_word in reverse_morse_code_dict:
+            decoded_text += reverse_morse_code_dict[morse_word]
         else:
-            morse_code += char + ' '  # If character not found, add as it is (space between words)
-    return morse_code.strip()
+            decoded_text += ' '
+    return decoded_text
+
+def play_morse_code(morse_code):
+    for symbol in morse_code:
+        if symbol == '.':
+            winsound.Beep(1000, 200)  # beep for dot
+        elif symbol == '-':
+            winsound.Beep(1000, 600)  # beep for dash
+        else:
+            time.sleep(0.3)  # pause between characters
 
 def main():
-    user_input = input("Enter text to convert to Morse code: ")
-    morse_code = text_to_morse(user_input)
-    print(f"Text to Morse Code: {morse_code}")
+    print("Welcome to Morse Code Translator!")
+    while True:
+        choice = input("Enter '1' to translate text to Morse code, '2' to translate Morse code to text,"
+                       " '3' to play Morse code, or 'q' to quit: ")
+        if choice == '1':
+            text_input = input("Enter the text to translate to Morse code: ")
+            morse_output = text_to_morse(text_input)
+            print("Morse code:", morse_output)
+        elif choice == '2':
+            morse_input = input("Enter the Morse code to translate to text: ")
+            text_output = morse_to_text(morse_input)
+            print("Decoded text:", text_output)
+        elif choice == '3':
+            morse_input = input("Enter the Morse code to play: ")
+            play_morse_code(morse_input)
+        elif choice.lower() == 'q':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()
