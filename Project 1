@@ -1,3 +1,7 @@
+'''
+The Morse Code Translation project in Python is designed to encode and decode messages using Morse code. This project involves creating a dictionary to map each letter and number to its corresponding Morse code representation and vice versa. The program can take a string input and convert it to Morse code, where each letter is represented by a series of dots and dashes. It can also take a Morse code string and convert it back to readable text. This project helps in understanding dictionary operations, string manipulation, and control flow in Python.'''
+
+
 import winsound  # for sound output (Windows)
 import time
 
