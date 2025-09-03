@@ -1,7 +1,10 @@
 '''
-The Morse Code Translation project in Python is designed to encode and decode messages using Morse code. This project involves creating a dictionary to map each letter and number to its corresponding Morse code representation and vice versa. The program can take a string input and convert it to Morse code, where each letter is represented by a series of dots and dashes. It can also take a Morse code string and convert it back to readable text. This project helps in understanding dictionary operations, string manipulation, and control flow in Python.'''
-
-
+The Morse Code Translation project in Python is designed to encode and decode messages using Morse code. 
+This project involves creating a dictionary to map each letter and number to its corresponding Morse code representation and vice versa. 
+The program can take a string input and convert it to Morse code, where each letter is represented by a series of dots and dashes. 
+It can also take a Morse code string and convert it back to readable text. 
+This project helps in understanding dictionary operations, string manipulation, and control flow in Python.
+'''
 import winsound  # for sound output (Windows)
 import time
 
@@ -69,3 +72,23 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+"""
+SAMPLE OUTPUT
+Welcome to Morse Code Translator!
+
+Enter '1' to translate text to Morse code, '2' to translate Morse code to text, '3' to play Morse code, or 'q' to quit: 1
+Enter the text to translate to Morse code: HELLO WORLD
+Morse code: .... . .-.. .-.. ---   .-- --- .-. .-.. -..
+
+Enter '1' to translate text to Morse code, '2' to translate Morse code to text, '3' to play Morse code, or 'q' to quit: 2
+Enter the Morse code to translate to text: .... . .-.. .-.. ---   .-- --- .-. .-.. -..
+Decoded text: HELLO WORLD
+
+Enter '1' to translate text to Morse code, '2' to translate Morse code to text, '3' to play Morse code, or 'q' to quit: 3
+Enter the Morse code to play: .... . .-.. .-.. ---   .-- --- .-. .-.. -..
+
+Enter '1' to translate text to Morse code, '2' to translate Morse code to text, '3' to play Morse code, or 'q' to quit: q
+Goodbye!
+"""
